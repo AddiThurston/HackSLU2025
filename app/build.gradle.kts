@@ -32,5 +32,10 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "healthcareApp.App"
+    mainClass = "healthcareApp.EmailSender"
+}
+
+dependencies {
+    implementation("com.sun.mail:javax.mail:1.6.2")
+    implementation("com.sun.activation:javax.activation:1.2.0")
 }
