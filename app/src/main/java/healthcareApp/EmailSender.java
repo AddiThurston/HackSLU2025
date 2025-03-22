@@ -5,13 +5,13 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 public class EmailSender {
-    public static void main(String[] args) {
+    public static void send(String user, String pass, String recip, String m) {
         // Sender's email credentials
-        String senderEmail = "addithurston@gmail.com";
-        String senderPassword = "ybdh rpuu jgkp shdj";
+        String senderEmail = user;          //"addithurston@gmail.com"
+        String senderPassword = pass;       // "ybdh rpuu jgkp shdj"
 
         // Recipient's email address
-        String recipientEmail = "addithurston@gmail.com";
+        String recipientEmail = recip;           //"addithurston@gmail.com"
 
         // Set up SMTP server properties
         Properties properties = new Properties();
@@ -37,7 +37,7 @@ public class EmailSender {
                 InternetAddress.parse(recipientEmail)
             );
             message.setSubject("Test Email");
-            message.setText("Hello, this is an email sent using Java!");
+            message.setText(m);
 
             // Send the email
             Transport.send(message);

@@ -1,21 +1,24 @@
 package healthcareApp.gui;
 
+import healthcareApp.EmailSender;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class EncryptionPanel implements ActionListener{
+public class EncryptionPanel {
     JPanel mainPanel;
     JLabel usernameLabel;
     JTextField usernameField;
     JLabel passwordLabel;
-    JPasswordField passwordField;
+    JTextField passwordField;
+    JLabel recipientLabel;
+    JTextField recipientField;
     JLabel messageLabel;
     JTextArea messageArea;
-    JButton submitButton;
+    JButton sendButton;
 
-    public EncryptionPanel()
-    {
+    public EncryptionPanel() {
         mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5); // Add padding between components
@@ -24,11 +27,17 @@ public class EncryptionPanel implements ActionListener{
         usernameLabel = new JLabel("Username:");
         usernameField = new JTextField(15);
         passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField(15);
+        passwordField = new JTextField(15);
+        recipientLabel = new JLabel("Recipient:");
+        recipientField = new JTextField(15);
         messageLabel = new JLabel("Message:");
         messageArea = new JTextArea(5, 15);
-        submitButton = new JButton("Submit");
-        submitButton.addActionListener(this);
+        sendButton = new JButton("Send");
+        sendButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                EmailSender.send(usernameField.getText(), passwordField.getText(), recipientField.getText(), messageArea.getText());
+            }
+        });
 
         // Add username label and field
         gbc.gridx = 0;
@@ -52,26 +61,33 @@ public class EncryptionPanel implements ActionListener{
         gbc.anchor = GridBagConstraints.WEST;
         mainPanel.add(passwordField, gbc);
 
-        // Add message label and area
+        // Add recipient label and field
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        mainPanel.add(recipientLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(recipientField, gbc);
+
+        // Add message label and area
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.NORTHEAST;
         mainPanel.add(messageLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
         mainPanel.add(new JScrollPane(messageArea), gbc);
 
         // Add submit button
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
-        mainPanel.add(submitButton, gbc);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Button pressed!!");
+        mainPanel.add(sendButton, gbc);
     }
 
     public JPanel getPanel() {
