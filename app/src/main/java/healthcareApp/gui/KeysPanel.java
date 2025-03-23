@@ -36,11 +36,20 @@ public class KeysPanel {
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Encryption encryption = new Encryption(Integer.parseInt(p.getText()), Integer.parseInt(q.getText()));
-                    publicKey.setText("Public Key: (" + encryption.getE() + ", " + encryption.getN() + ")");
-                    privateKey.setText("Private Key: (" + encryption.calculatePrivateKey() + ", " + encryption.getN() + ")");
-                    errorLabel.setText("");
-                    mainPanel.repaint();
+                    int pVal = Integer.parseInt(p.getText());
+                    int qVal = Integer.parseInt(q.getText());
+                    if (KeysPanel.isPrime(pVal) && KeysPanel.isPrime(qVal)) {
+                        Encryption encryption = new Encryption(pVal, qVal);
+                        publicKey.setText("Public Key: (" + encryption.getE() + ", " + encryption.getN() + ")");
+                        privateKey.setText("Private Key: (" + encryption.calculatePrivateKey() + ", " + encryption.getN() + ")");
+                        errorLabel.setText("");
+                        mainPanel.repaint();
+                    } else {
+                        errorLabel.setText("Error: You must input two prime numbers");
+                        privateKey.setText("Private Key: ___");
+                        publicKey.setText("Public Key: ___");
+                        mainPanel.repaint();
+                    }
                 } catch (NumberFormatException error) {
                     errorLabel.setText("Error: You must input two prime numbers");
                     privateKey.setText("Private Key: ___");
@@ -97,5 +106,27 @@ public class KeysPanel {
 
     public JPanel getPanel() {
         return mainPanel;
+    }
+
+    public static boolean isPrime(int num) {
+        // Handle edge cases
+        if (num <= 1) {
+            return false; // Numbers less than or equal to 1 are not prime
+        }
+        if (num == 2) {
+            return true; // 2 is the only even prime number
+        }
+        if (num % 2 == 0) {
+            return false; // Eliminate all other even numbers
+        }
+
+        // Check divisors from 3 up to the square root of the number
+        for (int i = 3; i <= Math.sqrt(num); i += 2) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+
+        return true; // If no divisors are found, the number is prime
     }
 }
