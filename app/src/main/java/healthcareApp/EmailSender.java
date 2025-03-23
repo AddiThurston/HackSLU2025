@@ -7,11 +7,11 @@ import javax.mail.internet.*;
 public class EmailSender {
     public static boolean send(String user, String pass, String recip, String m) {
         // Sender's email credentials
-        String senderEmail = user;          //"addithurston@gmail.com"
-        String senderPassword = pass;       // "lyzv fdyb airr zkxk"
+        String senderEmail = user;
+        String senderPassword = pass;
         
         // Recipient's email address
-        String recipientEmail = recip;           //"addithurston@gmail.com"
+        String recipientEmail = recip;
 
         // Set up SMTP server properties
         Properties properties = new Properties();

@@ -7,7 +7,9 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    kotlin("jvm") version "1.9.22"
     application
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -39,3 +41,4 @@ dependencies {
     implementation("com.sun.mail:javax.mail:1.6.2")
     implementation("com.sun.activation:javax.activation:1.2.0")
 }
+

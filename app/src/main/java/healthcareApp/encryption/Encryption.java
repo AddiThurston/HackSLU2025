@@ -46,7 +46,8 @@ public class Encryption {
             char plaintextChar = (char) decrypted.intValue();  // Convert back to character
             plaintextBuilder.append(plaintextChar);  // Append the character to the result
         }
-        return plaintextBuilder.toString();  // Return the decrypted word
+        String decryptedString = plaintextBuilder.toString();
+        return decryptedString;  // Return the decrypted word
     }
 
     public static int getE() {

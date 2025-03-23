@@ -40,9 +40,6 @@ public class SetKeys {
                 try {
                     if (publicField.getText() != null) {
                         Encryption.setE(Integer.parseInt(publicField.getText()));
-                        publicKey.setText("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
-                        privateKey.setText("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
-                        mainPanel.repaint();
                     }
                 } catch (NumberFormatException error) {
                     
@@ -51,9 +48,6 @@ public class SetKeys {
                 try {
                     if (privateField.getText() != null) {
                         Encryption.setD(Integer.parseInt(privateField.getText()));
-                        publicKey.setText("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
-                        privateKey.setText("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
-                        mainPanel.repaint();
                     }
                 } catch (NumberFormatException error) {
                     
@@ -62,13 +56,13 @@ public class SetKeys {
                 try {
                     if (modField.getText() != null) {
                         Encryption.setN(Integer.parseInt(modField.getText()));
-                        publicKey.setText("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
-                        privateKey.setText("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
-                        mainPanel.repaint();
                     }
                 } catch (NumberFormatException error) {
                     
                 }
+                publicKey.setText("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
+                privateKey.setText("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
+                mainPanel.repaint();
             }
         });
 
