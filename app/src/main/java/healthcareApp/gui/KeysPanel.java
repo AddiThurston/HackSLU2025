@@ -7,15 +7,15 @@ import java.awt.event.*;
 import healthcareApp.encryption.Encryption;
 
 public class KeysPanel {
-    JPanel mainPanel;
-    JLabel primeOne;
-    JTextField p;
-    JLabel primeTwo;
-    JTextField q;
-    JLabel publicKey;
-    JLabel privateKey;
-    JLabel errorLabel;
-    JButton sendButton;
+    private JPanel mainPanel;
+    private JLabel primeOne;
+    private JTextField p;
+    private JLabel primeTwo;
+    private JTextField q;
+    private JLabel publicKey;
+    private JLabel privateKey;
+    private JLabel errorLabel;
+    private JButton sendButton;
 
     public KeysPanel() {
         mainPanel = new JPanel(new GridBagLayout());
@@ -24,15 +24,15 @@ public class KeysPanel {
     
         // Create components
         primeOne = new JLabel("First Prime Number:");
-        p = new JTextField(15);
+        p = new JTextField(5);
         p.setToolTipText("Prime number");
         primeTwo = new JLabel("Second Prime Number:");
-        q = new JTextField(15);
+        q = new JTextField(5);
         q.setToolTipText("Prime number");
-        publicKey = new JLabel("Public Key: ___");
-        privateKey = new JLabel("Private Key: ___");
+        publicKey = new JLabel("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
+        privateKey = new JLabel("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
         errorLabel = new JLabel("");
-        sendButton = new JButton("Generate:");
+        sendButton = new JButton("Generate");
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -40,14 +40,12 @@ public class KeysPanel {
                     int qVal = Integer.parseInt(q.getText());
                     if (KeysPanel.isPrime(pVal) && KeysPanel.isPrime(qVal)) {
                         Encryption encryption = new Encryption(pVal, qVal);
-                        publicKey.setText("Public Key: (" + encryption.getE() + ", " + encryption.getN() + ")");
-                        privateKey.setText("Private Key: (" + encryption.calculatePrivateKey() + ", " + encryption.getN() + ")");
+                        publicKey.setText("Public Key: (" + Encryption.getE() + ", " + Encryption.getN() + ")");
+                        privateKey.setText("Private Key: (" + Encryption.getD() + ", " + Encryption.getN() + ")");
                         errorLabel.setText("");
                         mainPanel.repaint();
                     } else {
                         errorLabel.setText("Error: You must input two prime numbers");
-                        privateKey.setText("Private Key: ___");
-                        publicKey.setText("Public Key: ___");
                         mainPanel.repaint();
                     }
                 } catch (NumberFormatException error) {

@@ -1,22 +1,24 @@
 package healthcareApp.gui;
 
 import healthcareApp.EmailSender;
+import healthcareApp.encryption.Encryption;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
 public class EncryptionPanel {
-    JPanel mainPanel;
-    JLabel usernameLabel;
-    JTextField usernameField;
-    JLabel passwordLabel;
-    JTextField passwordField;
-    JLabel recipientLabel;
-    JTextField recipientField;
-    JLabel messageLabel;
-    JTextArea messageArea;
-    JButton sendButton;
+    private JPanel mainPanel;
+    private JLabel usernameLabel;
+    private JTextField usernameField;
+    private JLabel passwordLabel;
+    private JTextField passwordField;
+    private JLabel recipientLabel;
+    private JTextField recipientField;
+    private JLabel messageLabel;
+    private JTextArea messageArea;
+    private JLabel errorLabel;
+    private JButton sendButton;
 
     public EncryptionPanel() {
         mainPanel = new JPanel(new GridBagLayout());
@@ -32,10 +34,23 @@ public class EncryptionPanel {
         recipientField = new JTextField(15);
         messageLabel = new JLabel("Message:");
         messageArea = new JTextArea(5, 15);
-        sendButton = new JButton("Send");
+        sendButton = new JButton("Encrypt and Send");
+        errorLabel = new JLabel("");
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                EmailSender.send(usernameField.getText(), passwordField.getText(), recipientField.getText(), messageArea.getText());
+                if (Encryption.getE() != 0 && Encryption.getN() != 0) {
+                    String encryptedEmail = Encryption.encrypt(messageArea.getText());
+                    if (EmailSender.send(usernameField.getText(), passwordField.getText(), recipientField.getText(), encryptedEmail)) {
+                        errorLabel.setText("Email sent!");
+                    } else {
+                        errorLabel.setText("Incorrect input.");
+                    }
+                    
+                    mainPanel.repaint();
+                } else {
+                    errorLabel.setText("Set the public key!");
+                    mainPanel.repaint();
+                }
             }
         });
 
@@ -86,8 +101,13 @@ public class EncryptionPanel {
         // Add submit button
         gbc.gridx = 1;
         gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.EAST;
         mainPanel.add(sendButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        mainPanel.add(errorLabel, gbc);
     }
 
     public JPanel getPanel() {

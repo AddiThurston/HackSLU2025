@@ -5,10 +5,10 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 public class EmailSender {
-    public static void send(String user, String pass, String recip, String m) {
+    public static boolean send(String user, String pass, String recip, String m) {
         // Sender's email credentials
         String senderEmail = user;          //"addithurston@gmail.com"
-        String senderPassword = pass;       // "ybdh rpuu jgkp shdj"
+        String senderPassword = pass;       // "lyzv fdyb airr zkxk"
         
         // Recipient's email address
         String recipientEmail = recip;           //"addithurston@gmail.com"
@@ -43,8 +43,9 @@ public class EmailSender {
             Transport.send(message);
 
             System.out.println("Email sent successfully!");
+            return true;
         } catch (MessagingException e) {
-            e.printStackTrace();
+            return false;
         }
     }
 }

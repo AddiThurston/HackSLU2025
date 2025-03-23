@@ -32,7 +32,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "healthcareApp.EmailSender"
+    mainClass = "healthcareApp.Driver"
 }
 
 dependencies {
