@@ -8,27 +8,30 @@ public class AppGUI implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     final static String ENCRYPT = "Send Encrypted Message";
     final static String DECRYPT = "Decrypt Received Message";
-     
+    final static String KEYS = "Generate Public and Private Keys";
+    
     public void addComponentToPane(Container pane) {
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel mainPanel = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = { ENCRYPT, DECRYPT };
+        String comboBoxItems[] = { ENCRYPT, DECRYPT, KEYS};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
         mainPanel.add(cb);
     
-        //Create the "card1" JPanel
-        // Create the panel and set layout
+        
+        // Create the card panels
         JPanel card1 = new EncryptionPanel().getPanel();
 
-        JPanel card2 = new JPanel();
-        card2.add(new JTextField("TextField", 20));
-         
+        JPanel card2 = new DecryptionPanel().getPanel();
+
+        JPanel card3 = new KeysPanel().getPanel();
+        
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.add(card1, ENCRYPT);
         cards.add(card2, DECRYPT);
+        cards.add(card3, KEYS);
          
         pane.add(mainPanel, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -46,7 +49,7 @@ public class AppGUI implements ItemListener {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("CardLayoutDemo");
+        JFrame frame = new JFrame("Encrypted Email");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          
         //Create and set up the content pane.

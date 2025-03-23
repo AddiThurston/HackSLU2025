@@ -9,7 +9,7 @@ public class EmailSender {
         // Sender's email credentials
         String senderEmail = user;          //"addithurston@gmail.com"
         String senderPassword = pass;       // "ybdh rpuu jgkp shdj"
-
+        
         // Recipient's email address
         String recipientEmail = recip;           //"addithurston@gmail.com"
 

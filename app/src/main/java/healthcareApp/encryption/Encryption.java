@@ -7,15 +7,15 @@ public class Encryption {
     private int q;
     private int n;
     private int e;
-
-    public Encryption(int p, int q, int e) {
+    
+    public Encryption(int p, int q) {
         this.p = p;
         this.q = q;
         this.n = p * q;
-        this.e = e;
+        this.e = 65537;
     }
 
-    private int calculatePrivateKey() {
+    public int calculatePrivateKey() {
         int phi = (p - 1) * (q - 1);
         BigInteger eBigInteger = BigInteger.valueOf(e);
         BigInteger phiBigInteger = BigInteger.valueOf(phi);
@@ -32,5 +32,13 @@ public class Encryption {
             ciphertextBuilder.append(encrypted).append(" ");
         }
         return ciphertextBuilder.toString();
+    }
+
+    public int getE() {
+        return e;
+    }
+
+    public int getN() {
+        return n;
     }
 }
